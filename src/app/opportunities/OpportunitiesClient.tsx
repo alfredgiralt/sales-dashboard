@@ -36,8 +36,8 @@ interface Opportunity {
   mainContact: string;
   notes: string;
   nextStep: string;
-  nextStepDueDate: string | null;
-  lastInteractionDate: string | null;
+  nextStepDueDate: Date | string | null;
+  lastInteractionDate: Date | string | null;
   mainRisk: string;
   riskType: string;
   riskLevel: string;
@@ -138,7 +138,7 @@ export default function OpportunitiesClient({
     }
   };
 
-  const getDueDateFlag = (date: string | null) => {
+  const getDueDateFlag = (date: Date | string | null) => {
     const days = daysUntil(date);
     if (days === null) return null;
     if (days < 0)

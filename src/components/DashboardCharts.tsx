@@ -85,7 +85,9 @@ export default function DashboardCharts({
               innerRadius={50}
               outerRadius={90}
               dataKey="value"
-              label={({ name, value }) => `${name.split("/")[0].trim()} (${value})`}
+              label={({ name, value }) =>
+                `${String(name ?? "").split("/")[0].trim()} (${value})`
+              }
             >
               {categoryData.map((_, i) => (
                 <Cell key={i} fill={COLORS[i % COLORS.length]} />

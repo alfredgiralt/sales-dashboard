@@ -26,7 +26,7 @@ interface Opportunity {
   blocked: boolean;
   blockerDescription: string;
   nextStep: string;
-  nextStepDueDate: string | null;
+  nextStepDueDate: Date | string | null;
   businessModel: string;
 }
 

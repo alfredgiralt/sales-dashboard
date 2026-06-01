@@ -28,8 +28,8 @@ interface Account {
   opportunities: {
     id: string;
     status: string;
-    lastInteractionDate: string | null;
-    nextStepDueDate: string | null;
+    lastInteractionDate: Date | string | null;
+    nextStepDueDate: Date | string | null;
   }[];
 }
 
@@ -113,23 +113,27 @@ export default function AccountsClient({
   };
 
   const getLatestDate = (
-    opps: { lastInteractionDate: string | null }[]
-  ): string | null => {
+    opps: { lastInteractionDate: Date | string | null }[]
+  ): Date | string | null => {
     const dates = opps
       .map((o) => o.lastInteractionDate)
-      .filter(Boolean) as string[];
+      .filter(Boolean) as (Date | string)[];
     if (dates.length === 0) return null;
-    return dates.sort().reverse()[0];
+    return dates.sort(
+      (a, b) => new Date(b).getTime() - new Date(a).getTime()
+    )[0];
   };
 
   const getNextDueDate = (
-    opps: { nextStepDueDate: string | null }[]
-  ): string | null => {
+    opps: { nextStepDueDate: Date | string | null }[]
+  ): Date | string | null => {
     const dates = opps
       .map((o) => o.nextStepDueDate)
-      .filter(Boolean) as string[];
+      .filter(Boolean) as (Date | string)[];
     if (dates.length === 0) return null;
-    return dates.sort()[0];
+    return dates.sort(
+      (a, b) => new Date(a).getTime() - new Date(b).getTime()
+    )[0];
   };
 
   return (

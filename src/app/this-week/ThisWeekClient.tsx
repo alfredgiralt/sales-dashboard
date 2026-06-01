@@ -25,8 +25,8 @@ interface Opportunity {
   status: string;
   priority: string;
   nextStep: string;
-  nextStepDueDate: string | null;
-  lastInteractionDate: string | null;
+  nextStepDueDate: Date | string | null;
+  lastInteractionDate: Date | string | null;
   riskLevel: string;
   blocked: boolean;
   weightedValue: number;

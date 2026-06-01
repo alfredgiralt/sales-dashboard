@@ -26,8 +26,8 @@ interface OpportunityFormProps {
     mainContact: string;
     notes: string;
     nextStep: string;
-    nextStepDueDate: string | null;
-    lastInteractionDate: string | null;
+    nextStepDueDate: Date | string | null;
+    lastInteractionDate: Date | string | null;
     mainRisk: string;
     riskType: string;
     riskLevel: string;
@@ -41,7 +41,7 @@ interface OpportunityFormProps {
   onCancel: () => void;
 }
 
-function toDateInput(val: string | null | undefined): string {
+function toDateInput(val: Date | string | null | undefined): string {
   if (!val) return "";
   const d = new Date(val);
   return d.toISOString().split("T")[0];
