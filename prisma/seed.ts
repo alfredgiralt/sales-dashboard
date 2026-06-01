@@ -1,6 +1,21 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const url = process.env.TURSO_DATABASE_URL;
+const authToken = process.env.TURSO_AUTH_TOKEN;
+
+let prisma: PrismaClient;
+
+if (url && authToken) {
+  // Dynamic imports to avoid issues when packages aren't available
+  const { PrismaLibSql } = require("@prisma/adapter-libsql");
+  const { createClient } = require("@libsql/client");
+  const libsql = createClient({ url, authToken });
+  const adapter = new PrismaLibSql(libsql);
+  // @ts-ignore - adapter type mismatch between versions
+  prisma = new PrismaClient({ adapter });
+} else {
+  prisma = new PrismaClient();
+}
 
 async function main() {
   await prisma.opportunity.deleteMany();
